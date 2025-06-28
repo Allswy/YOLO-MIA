@@ -2,10 +2,7 @@ import os
 import random
 
 def collect_all_train_image_paths(image_dirs, label_root="/root/autodl-tmp/datasets/datasets/VOC/labels"):
-    """
-    收集所有指定目录下的图片文件完整路径，且对应标签文件存在
-    label_root: 标签根目录
-    """
+
     img_paths = []
     for img_dir in image_dirs:
         if not os.path.exists(img_dir):
@@ -25,7 +22,6 @@ def collect_all_train_image_paths(image_dirs, label_root="/root/autodl-tmp/datas
     return img_paths
 
 def split_member_nonmember(paths):
-    """随机打乱paths，拆分成两半：成员 / 非成员"""
     random.shuffle(paths)
     half = len(paths) // 10
     member_samples = paths[:half]
@@ -33,7 +29,6 @@ def split_member_nonmember(paths):
     return member_samples, non_member_samples
 
 def split_train_val(member_samples, train_ratio=0.8):
-    """将成员样本再次划分为训练集 / 验证集"""
     random.shuffle(member_samples)
     split_index = int(len(member_samples) * train_ratio)
     train_samples = member_samples[:split_index]
@@ -46,11 +41,9 @@ def save_list_to_file(lst, filename):
             f.write(item + '\n')
     print(f"已保存 {len(lst)} 条路径到 {filename}")
 
-# 示例调用
 
 
 def main():
-    #random.seed(42)  # 固定随机种子，保证结果复现
 
     image_dirs = [
         "/root/autodl-tmp/datasets/datasets/VOC/images/train2007",
